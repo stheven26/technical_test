@@ -8,11 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/stheven26/technical_test/db"
+	"github.com/stheven26/technical_test/globals"
 	"github.com/stheven26/technical_test/models"
-)
-
-var (
-	key = "Secret"
 )
 
 func Register(c *gin.Context) {
@@ -56,7 +53,7 @@ func Login(c *gin.Context) {
 			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
 		})
 
-		token, err := claims.SignedString([]byte(key))
+		token, err := claims.SignedString([]byte(globals.Key))
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
